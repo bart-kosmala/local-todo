@@ -1,7 +1,7 @@
 export const retrieveId = () => {
   const lastId = parseInt(localStorage.getItem("lastId"));
 
-  if (lastId >= Number.MAX_SAFE_INTEGER) {
+  if (lastId >= Number.MAX_SAFE_INTEGER || isNaN(lastId)) {
     localStorage.clear();
     return 0;
   }
