@@ -9,7 +9,7 @@ import {
   retrieveTodos,
   storeState,
   getCurrentDate,
-} from "./todoUtil";
+} from "./TodoUtil";
 
 import "./App.css";
 
