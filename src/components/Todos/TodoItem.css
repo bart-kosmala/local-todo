@@ -1,0 +1,36 @@
+.todo {
+    font-size: larger;
+    background: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px #ccc dotted;
+    text-decoration: none;
+}
+
+.todo:hover {
+    background-color: rgb(238, 172, 91);
+}
+
+.todo-done {
+    text-decoration: line-through;
+}
+
+.delete-btn {
+    background: #7e0202;
+    color: #fff;
+    border: none;
+    padding: 6px 20px;
+    cursor: pointer;
+    float: right;
+}
+
+.date {
+    color: rgb(88, 81, 72);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: x-small;
+}
+
+input[type='checkbox'] {
+    width:40px;
+    height:25px;
+    cursor: pointer;
+}

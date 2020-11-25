@@ -1,29 +1,80 @@
-import Todos from '../Todos/Todos'
+import { useState, useEffect } from "react";
 
-import './App.css';
+import Todos from "../Todos/Todos";
+import AddTodo from "../Todos/AddTodo";
+import Header from "./Header";
 
-const state = {
-  todos: [
-    {
-      id: 1,
-      title: 'test1',
-      completed: false
-    },
-    {
-      id: 2,
-      title: 'test2',
-      completed: true
-    }
-  ]
-}
+import {
+  retrieveId,
+  retrieveTodos,
+  storeState,
+  getCurrentDate,
+} from "./todoUtil";
 
-function App() {
+import "./App.css";
+
+const toggleTodo = (state, id) => {
+  return {
+    todos: state.todos.map((elem) => {
+      if (elem.id === id) {
+        elem.completed = !elem.completed;
+      }
+
+      return elem;
+    }),
+    lastId: state.lastId,
+  };
+};
+
+const deleteTodo = (state, id) => {
+  localStorage.removeItem(id.toString());
+
+  return {
+    todos: state.todos.filter((elem) => elem.id !== id),
+    lastId: state.lastId,
+  };
+};
+
+const addTodo = (state, title) => {
+  return {
+    todos: [
+      ...state.todos,
+      {
+        id: state.lastId + 1,
+        title: title,
+        completed: false,
+        created: getCurrentDate(),
+      },
+    ],
+    lastId: state.lastId + 1,
+  };
+};
+
+const App = () => {
+  const initId = retrieveId();
+
+  const [state, setState] = useState({
+    lastId: initId,
+    todos: retrieveTodos(initId),
+  });
+
+  useEffect(() => storeState(state), [state]);
+
   return (
-    <div className="App">
-      <h1>App</h1>
-      <Todos todos={state.todos} />
+    <div>
+      <Header />
+      <div className="container">
+        <Todos
+          todos={state.todos}
+          toggleCompletion={(id) => setState(toggleTodo(state, id))}
+          deleteTodo={(id) => setState(deleteTodo(state, id))}
+        />
+      </div>
+      <footer>
+        <AddTodo addTodo={(title) => setState(addTodo(state, title))} />
+      </footer>
     </div>
   );
-}
+};
 
 export default App;

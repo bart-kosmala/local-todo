@@ -1,27 +1,31 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const getStyle = (todo) => {
-    if (todo.completed) {
-        return {
-            textDecoration: 'line-through'
-        }
-    } else {
-        return {
-            textDecoration: 'none'
-        }
-    }
-}
+import "./TodoItem.css";
 
-const TodoItem = ({ todo }) => {
-    return (
-        <div style={getStyle(todo)}>
-            <p>{todo.title}</p>
-        </div>
-    )
-}
+const TodoItem = (props) => {
+  const { id, title, completed, created } = props.todo;
+
+  return (
+    <div className={completed ? "todo todo-done" : "todo"}>
+      <p>
+        <input
+          type="checkbox"
+          defaultChecked={completed}
+          onChange={() => props.toggleCompletion(id)}
+        />{" "}
+        {title} <span className="date"> {created}</span>
+        <button className="delete-btn" onClick={() => props.deleteTodo(id)}>
+          delete
+        </button>
+      </p>
+    </div>
+  );
+};
 
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired
-}
+  todo: PropTypes.object.isRequired,
+  toggleCompletion: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+};
 
 export default TodoItem;

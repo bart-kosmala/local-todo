@@ -1,0 +1,21 @@
+form {
+    display: flex;
+}
+
+.add-text {
+    flex: 10;
+    padding: 5px 5px;
+}
+
+.add-btn {
+    flex: 1;
+    display: inline-block;
+    border: none;
+    background: rgb(133, 133, 133);
+    padding: 12px 20px;
+    cursor: pointer;
+    color: white;
+}
+.add-btn:hover {
+    background: rgb(50, 136, 50);
+}
